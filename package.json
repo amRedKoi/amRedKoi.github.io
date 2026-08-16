@@ -1,0 +1,28 @@
+{
+  "name": "amredkoi.github.io",
+  "version": "1.0.0",
+  "description": "amRedKoi 的个人小站 —— 记录科研、生活与随笔的纯静态博客，部署于 GitHub Pages。",
+  "private": true,
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "blog",
+    "static-site",
+    "github-pages",
+    "随笔",
+    "个人博客"
+  ],
+  "author": "amRedKoi",
+  "license": "MIT",
+  "homepage": "https://amRedKoi.github.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amRedKoi/amRedKoi.github.io.git"
+  },
+  "packageManager": "pnpm@10.24.0",
+  "dependencies": {
+    "lucide-static": "^1.31.0"
+  }
+}

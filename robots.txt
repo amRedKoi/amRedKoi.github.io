@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amRedKoi.github.io/sitemap.xml

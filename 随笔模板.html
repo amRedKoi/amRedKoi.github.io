@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  随笔标准模板（标准随笔模板.html）
+  ------------------------------------------------------------
+  使用说明：
+  1. 复制本文件，重命名为你想要的随笔文件名（例如 my-post.html）
+  2. 修改 <title>、<meta name="description"> 等 head 中的 SEO / Open Graph 信息
+  3. 在左侧栏的社交链接、底部版权等处按需修改
+  4. 将正文写进 <article class="article-body"> 内
+  5. （可选）若想让随笔出现在首页卡片列表，需同时在
+     assets/js/posts.js 的 window.posts 数组中新增一条记录：
+     {
+       id: "my-post",        // 与文件名保持一致，用于 post.html?id= 路由
+       title: "随笔标题",
+       category: "随笔",
+       date: "2026-08-16",   // YYYY-MM-DD
+       excerpt: "一句话摘要，显示在首页卡片上",
+       content: `...正文 HTML...`
+     }
+  ============================================================
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="在此填写随笔的一句话简介，供搜索引擎与分享卡片展示">
+  <meta name="author" content="amRedKoi">
+  <title>随笔标题 · amRedKoi 个人小站</title>
+  <link rel="canonical" href="https://amRedKoi.github.io/随笔模板.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="amRedKoi 个人小站 RSS" href="feed.xml">
+  <!-- Open Graph（随笔分享到微信 / 社交平台时展示的卡片） -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="amRedKoi 个人小站">
+  <meta property="og:title" content="随笔标题">
+  <meta property="og:description" content="在此填写随笔的一句话简介">
+  <meta property="og:url" content="https://amRedKoi.github.io/随笔模板.html">
+  <meta property="og:image" content="https://amRedKoi.github.io/assets/favicon.svg">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="static">
+
+  <!-- 顶部导航（跨页面一致，无需修改） -->
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <svg class="logo" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-code"></use></svg>
+      <span class="brand-text">amRedKoi</span>
+    </a>
+
+    <nav class="top-nav" aria-label="主导航">
+      <a href="index.html">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-home"></use></svg>
+        <span>首页</span>
+      </a>
+      <a href="about.html">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-user"></use></svg>
+        <span>关于</span>
+      </a>
+    </nav>
+
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换到深色模式">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-moon"></use></svg>
+      <span class="label">深色模式</span>
+    </button>
+  </header>
+
+  <div class="layout">
+    <!-- 左侧栏：个人卡片（跨页面一致） -->
+    <aside class="sidebar">
+      <div class="side-profile">
+        <img class="avatar" src="https://avatars.githubusercontent.com/u/99656385?v=4&size=128" alt="amRedKoi 的头像">
+        <h2 class="side-name">amRedKoi</h2>
+        <div class="social">
+          <a class="social-btn" href="https://github.com/amRedKoi" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-github"></use></svg>
+          </a>
+          <a class="social-btn" href="about.html" aria-label="关于我">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-user"></use></svg>
+          </a>
+          <a class="social-btn" href="mailto:jjjgml@qq.com" aria-label="联系我">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-mail"></use></svg>
+          </a>
+        </div>
+      </div>
+      <div class="daily-quote">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-lightbulb"></use></svg>
+        <p class="daily-quote-text" id="daily-quote"></p>
+      </div>
+      <div class="footer-note">记录生活<br>与随笔分享</div>
+    </aside>
+
+    <main class="content">
+      <div class="container">
+        <a class="back-link" href="index.html">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-arrow-left"></use></svg>
+          返回首页
+        </a>
+
+        <!-- 文章头部：分类 + 日期 + 标题 -->
+        <section class="article-header">
+          <div class="meta">
+            <span class="category">随笔</span>
+            <time datetime="2026-08-16">2026年8月16日</time>
+          </div>
+          <h1>随笔标题</h1>
+        </section>
+
+        <!-- ========== 正文从这里开始 ========== -->
+        <article class="article-body">
+          <!-- 开篇段 -->
+          <p>开篇写一段话，交代这篇随笔的缘起或背景，让读者快速进入状态。</p>
+
+          <!-- 引用块：用于引言、摘句 -->
+          <blockquote>这里是引用的句子或想强调的观点。</blockquote>
+
+          <!-- 二级标题 -->
+          <h2>一、小标题</h2>
+          <p>正文段落。中文段落之间用空行分隔，无需手动缩进。</p>
+
+          <!-- 无序列表 -->
+          <h2>二、要点罗列</h2>
+          <ul>
+            <li>要点一</li>
+            <li>要点二</li>
+            <li>要点三</li>
+          </ul>
+
+          <!-- 有序列表 -->
+          <h2>三、步骤说明</h2>
+          <ol>
+            <li>第一步</li>
+            <li>第二步</li>
+            <li>第三步</li>
+          </ol>
+
+          <!-- 行内代码：用于提到变量、命令、文件名 -->
+          <p>提到代码可以用行内 <code>code</code> 标记，例如命令 <code>pnpm add lucide-static</code>。</p>
+
+          <!-- 代码块：用于多行代码，<pre><code> 包裹 -->
+          <pre><code>// 示例代码块
+const greeting = "你好，世界";
+console.log(greeting);</code></pre>
+
+          <!-- 强调：加粗 -->
+          <p><strong>需要强调的关键内容</strong>，可加粗显示。</p>
+
+          <!-- 结尾 -->
+          <p>结尾可以总结观点，或抛出思考，或邀请读者留言交流。</p>
+        </article>
+        <!-- ========== 正文到此结束 ========== -->
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <div class="container">© 2026 amRedKoi · 个人小站</div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="回到顶部">
+    <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-arrow-up"></use></svg>
+  </button>
+
+  <!-- 若仅作为独立静态页浏览，以下脚本可不引入；
+       若需要主题切换/每日一句/回到顶部功能，请保留 main.js -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

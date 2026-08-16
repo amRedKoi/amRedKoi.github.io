@@ -1,0 +1,63 @@
+# 统一的部署 workflow：
+#   1) 从 assets/js/posts.js 重新生成 feed.xml 与 sitemap.xml
+#   2) 将整个站点部署到 GitHub Pages
+#
+# 触发时机：
+#   - 推送到 main 分支
+#   - 手动在 Actions 页点 "Run workflow"
+#
+# 注意：仓库需在 Settings → Pages 中将 "Build and deployment"
+# 来源设置为 "GitHub Actions"（使用本 workflow 部署）。
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间仅允许一个部署任务，冲突时取消旧任务。
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate feed.xml & sitemap.xml
+        run: node scripts/generate-feed.mjs
+
+      - name: Add .nojekyll
+        run: touch .nojekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
