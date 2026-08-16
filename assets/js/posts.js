@@ -74,13 +74,13 @@ window.posts = [
     file: "posts/github-pages-deploy.md",
   },
   {
-      id: "blog-test",
-      title: "测试博客",
-      category: "技术",
-      date: "2026-08-16",
-      excerpt:
-        "测试博客的发布流程",
-      file: "posts/blog-test.md",
-    },
+    id: "blog-test",
+    title: "测试博客",
+    category: "技术",
+    date: "2026-08-16",
+    excerpt:
+      "测试博客的发布流程",
+    file: "posts/blog-test.md",
+  },
   
 ];

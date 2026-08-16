@@ -176,12 +176,14 @@ async function renderPost() {
     if (post.content) {
       // 兼容：直接内联的 HTML
       container.innerHTML = post.content;
+      enhanceCodeBlocks(container);
     } else if (post.file) {
       // Markdown 文件：posts/xxx.md
       const res = await fetch(post.file);
       if (!res.ok) throw new Error("HTTP " + res.status);
       const md = await res.text();
       container.innerHTML = renderMarkdown(md);
+      enhanceCodeBlocks(container);
     } else {
       throw new Error("该文章未配置正文内容");
     }
@@ -245,11 +247,9 @@ const DAILY_QUOTES = [
 function initDailyQuote() {
   const el = document.querySelector("#daily-quote");
   if (!el) return;
-  // 以当天日期为种子，保证每天同一句、不随机跳动
-  const now = new Date();
-  const seed =
-    now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
-  el.textContent = DAILY_QUOTES[seed % DAILY_QUOTES.length];
+  // 每次加载随机展示一句
+  const idx = Math.floor(Math.random() * DAILY_QUOTES.length);
+  el.textContent = DAILY_QUOTES[idx];
 }
 
 /* ---------- 移动端侧栏抽屉 ---------- */
@@ -326,6 +326,110 @@ function initBackToTop() {
   });
 }
 
+/* ---------- 阅读进度条（文章页） ---------- */
+function initReadingProgress() {
+  const bar = document.querySelector("#reading-progress");
+  if (!bar) return;
+  const update = () => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    bar.style.transform = "scaleX(" + ratio + ")";
+  };
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
+/* ---------- 代码块：语言标签 + 复制按钮 ---------- */
+const CODE_LANG_LABELS = {
+  js: "JavaScript", javascript: "JavaScript", jsx: "JSX", tsx: "TSX",
+  ts: "TypeScript", typescript: "TypeScript",
+  py: "Python", python: "Python",
+  sh: "Bash", bash: "Bash", shell: "Shell", zsh: "Shell",
+  json: "JSON",
+  html: "HTML", htm: "HTML", xml: "XML", svg: "SVG",
+  css: "CSS", scss: "SCSS", less: "Less",
+  sql: "SQL",
+  java: "Java",
+  c: "C", h: "C", cpp: "C++", "c++": "C++", hpp: "C++",
+  cs: "C#", csharp: "C#",
+  go: "Go", golang: "Go",
+  rust: "Rust", rs: "Rust",
+  yaml: "YAML", yml: "YAML",
+  md: "Markdown", markdown: "Markdown",
+  plain: "Text", text: "Text", txt: "Text",
+};
+
+async function copyCode(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (e) {
+    /* 降级到 execCommand */
+  }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+function enhanceCodeBlocks(container) {
+  if (!container) return;
+  container.querySelectorAll("pre").forEach((pre) => {
+    if (pre.closest(".code-block")) return;
+    const code = pre.querySelector("code");
+    if (!code) return;
+    let label = "代码";
+    const m = code.className.match(/language-([\w+#.-]+)/);
+    if (m) label = CODE_LANG_LABELS[m[1].toLowerCase()] || m[1];
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "code-block";
+
+    const head = document.createElement("div");
+    head.className = "code-head";
+
+    const lang = document.createElement("span");
+    lang.className = "code-lang";
+    lang.textContent = label;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "code-copy";
+    btn.setAttribute("aria-label", "复制代码");
+    btn.textContent = "复制";
+
+    btn.addEventListener("click", async () => {
+      const ok = await copyCode(code.textContent);
+      btn.textContent = ok ? "已复制" : "失败";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.textContent = "复制";
+        btn.classList.remove("copied");
+      }, 1600);
+    });
+
+    head.appendChild(lang);
+    head.appendChild(btn);
+    wrapper.appendChild(head);
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+  });
+}
+
 /** 初始化首页 */
 function initHome() {
   renderProjects();
@@ -351,6 +455,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSidebarDrawer();
   initDailyQuote();
   initBackToTop();
+  initReadingProgress();
   if (document.body.dataset.page === "home") {
     initTypewriter();
     initHome();
