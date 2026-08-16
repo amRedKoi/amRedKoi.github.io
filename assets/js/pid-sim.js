@@ -173,12 +173,30 @@
     ctx.setLineDash([]);
   }
 
+  function cssVar(name, fallback) {
+    try {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    } catch (e) {
+      return fallback;
+    }
+  }
+
   // ---------- 主绘制 ----------
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
+    // 函数图配色随主题：浅色白底深墨，深色深底浅墨
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    const cGrid = cssVar("--border", isDark ? "#3a3d38" : "#dcd8ce");
+    const cAccent = cssVar("--accent", isDark ? "#9fb1a6" : "#85958c");
+    const cAccentBlue = cssVar("--accent-blue", isDark ? "#a2b4be" : "#8da0ab");
+    const cAccentPink = cssVar("--accent-pink", isDark ? "#bdaba6" : "#b3a09a");
+    const cMuted = cssVar("--text-muted", isDark ? "#97978d" : "#8b8a83");
+    const cHalo = isDark ? "#242624" : "#ffffff";
+
     // 网格（固定刻度）
-    ctx.strokeStyle = "var(--border, #dcd8ce)";
+    ctx.strokeStyle = cGrid;
     ctx.lineWidth = 1;
     ctx.globalAlpha = 0.55;
     ctx.beginPath();
@@ -196,12 +214,12 @@
     ctx.globalAlpha = 1;
 
     // 设定值（目标，虚线）
-    traceSeries("ref", "var(--accent-blue, #8da0ab)", 1.6, [6, 5]);
+    traceSeries("ref", cAccentBlue, 1.6, [6, 5]);
 
     // 实际输出（主曲线：底层柔光 + 上层实线，更有质感）
     // 柔光底层：同色半透明粗线
     ctx.save();
-    ctx.strokeStyle = "var(--accent, #85958c)";
+    ctx.strokeStyle = cAccent;
     ctx.lineWidth = 5;
     ctx.globalAlpha = 0.16;
     ctx.lineJoin = "round";
@@ -222,10 +240,10 @@
     ctx.stroke();
     ctx.restore();
     // 上层实线
-    traceSeries("y", "var(--accent, #85958c)", 2.3, []);
+    traceSeries("y", cAccent, 2.3, []);
 
     // 控制量 u（底部区域，虚线）
-    ctx.strokeStyle = "var(--accent-pink, #b3a09a)";
+    ctx.strokeStyle = cAccentPink;
     ctx.lineWidth = 1.3;
     ctx.setLineDash([3, 3]);
     ctx.beginPath();
@@ -249,15 +267,15 @@
     if (last) {
       const dotX = xOf(last.t);
       // 输出当前值
-      ctx.fillStyle = "var(--accent, #85958c)";
+      ctx.fillStyle = cAccent;
       ctx.beginPath();
       ctx.arc(dotX, yOf(last.y), 3.8, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = "var(--card, #f6f5f0)";
+      ctx.strokeStyle = cHalo;
       ctx.lineWidth = 1.5;
       ctx.stroke();
       // 目标当前值
-      ctx.fillStyle = "var(--accent-blue, #8da0ab)";
+      ctx.fillStyle = cAccentBlue;
       ctx.beginPath();
       ctx.arc(dotX, yOf(last.ref), 3.5, 0, Math.PI * 2);
       ctx.fill();
@@ -265,7 +283,7 @@
     }
 
     // 底部 u 轴标签
-    ctx.fillStyle = "var(--text-muted, #8b8a83)";
+    ctx.fillStyle = cMuted;
     ctx.font = "10px inherit";
     ctx.textBaseline = "bottom";
     ctx.textAlign = "center";

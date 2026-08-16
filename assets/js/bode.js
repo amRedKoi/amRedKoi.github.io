@@ -197,12 +197,13 @@
 
   /* ---------- 绘制 ---------- */
   function drawBode(canvas, spec) {
+    // 函数图配色随主题：浅色白底深墨，深色深底浅墨
     var isDark =
       document.documentElement.getAttribute("data-theme") === "dark";
-    var cText = cssVar("--text", isDark ? "#d7d4cb" : "#4b4a46");
-    var cMuted = cssVar("--text-muted", isDark ? "#97978d" : "#8b8a83");
-    var cGrid = cssVar("--border", isDark ? "#3a3d38" : "#dcd8ce");
-    var cCard = cssVar("--card", isDark ? "#2b2e2b" : "#f6f5f0");
+    var cText = isDark ? "#d7d4cb" : "#4b4a46";
+    var cMuted = isDark ? "#97978d" : "#8b8a83";
+    var cGrid = isDark ? "#3a3d38" : "#dcd8ce";
+    var cBg = isDark ? "#242624" : "#ffffff";
 
     var seriesList = spec.series || [];
     var fmin = spec.fmin || 0.01;
@@ -261,7 +262,7 @@
     var ctx = canvas.getContext("2d");
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    ctx.fillStyle = cCard;
+    ctx.fillStyle = cBg;
     ctx.fillRect(0, 0, W, H);
 
     // 标题
