@@ -233,6 +233,64 @@ function initDailyQuote() {
   el.textContent = DAILY_QUOTES[seed % DAILY_QUOTES.length];
 }
 
+/* ---------- 移动端侧栏抽屉 ---------- */
+function initSidebarDrawer() {
+  const btn = document.querySelector("#menu-toggle");
+  const sidebar = document.querySelector("#sidebar");
+  if (!btn || !sidebar) return;
+
+  // 动态创建遮罩
+  let overlay = document.querySelector(".sidebar-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "sidebar-overlay";
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.appendChild(overlay);
+  }
+
+  const open = () => {
+    sidebar.classList.add("open");
+    overlay.classList.add("open");
+    btn.setAttribute("aria-expanded", "true");
+    btn.setAttribute("aria-label", "关闭菜单");
+    document.body.style.overflow = "hidden";
+  };
+
+  const close = () => {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "打开菜单");
+    document.body.style.overflow = "";
+  };
+
+  btn.addEventListener("click", () => {
+    if (sidebar.classList.contains("open")) close();
+    else open();
+  });
+
+  overlay.addEventListener("click", close);
+
+  // 点击抽屉内的链接后自动关闭
+  sidebar.addEventListener("click", (e) => {
+    if (e.target.closest("a")) close();
+  });
+
+  // Esc 关闭
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sidebar.classList.contains("open")) close();
+  });
+
+  // 拉伸到桌面宽度时复位
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
+      close();
+      // 复位可能残留的 body overflow
+      document.body.style.overflow = "";
+    }
+  });
+}
+
 /* ---------- 回到顶部 ---------- */
 function initBackToTop() {
   const btn = document.querySelector("#back-to-top");
@@ -271,6 +329,7 @@ function initHome() {
 /* 根据当前页面初始化 */
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
+  initSidebarDrawer();
   initDailyQuote();
   initBackToTop();
   if (document.body.dataset.page === "home") {

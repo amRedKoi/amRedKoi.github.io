@@ -44,6 +44,9 @@
 
   <!-- 顶部导航（跨页面一致，无需修改） -->
   <header class="topbar">
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="sidebar">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-menu"></use></svg>
+    </button>
     <a class="brand" href="index.html">
       <svg class="logo" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-code"></use></svg>
       <span class="brand-text">amRedKoi</span>
@@ -68,7 +71,7 @@
 
   <div class="layout">
     <!-- 左侧栏：个人卡片（跨页面一致） -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="side-profile">
         <img class="avatar" src="https://avatars.githubusercontent.com/u/99656385?v=4&size=128" alt="amRedKoi 的头像">
         <h2 class="side-name">amRedKoi</h2>
