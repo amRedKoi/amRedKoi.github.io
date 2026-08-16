@@ -753,6 +753,18 @@ input:focus-visible,
   margin: 26px 0 12px;
 }
 
+.article-body h4 {
+  font-size: 17px;
+  margin: 22px 0 10px;
+}
+
+.article-body h5,
+.article-body h6 {
+  font-size: 15px;
+  margin: 20px 0 10px;
+  color: var(--text-muted);
+}
+
 .article-body p {
   margin-bottom: 18px;
 }
@@ -765,6 +777,24 @@ input:focus-visible,
 
 .article-body li {
   margin-bottom: 7px;
+}
+
+.article-body li > ul,
+.article-body li > ol {
+  margin: 7px 0 7px 22px;
+}
+
+.article-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
+}
+
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 20px 0;
 }
 
 .article-body blockquote {
@@ -801,6 +831,186 @@ input:focus-visible,
   padding: 0;
   color: inherit;
 }
+
+/* ---------- 代码语法高亮配色 ----------
+   代码块底色在深浅主题下均为深色（--pre-bg），故使用同一套
+   GitHub Dark 风格调色板，深浅主题通用 */
+.article-body pre .tok-c     { color: #8b949e; font-style: italic; } /* 注释 */
+.article-body pre .tok-s     { color: #a5d6ff; }                     /* 字符串 */
+.article-body pre .tok-n     { color: #79c0ff; }                     /* 数字 */
+.article-body pre .tok-k     { color: #ff7b72; }                     /* 关键字 */
+.article-body pre .tok-t     { color: #ffa657; }                     /* 类型 */
+.article-body pre .tok-f     { color: #d2a8ff; }                     /* 函数 */
+.article-body pre .tok-b     { color: #79c0ff; }                     /* 内建字面量 */
+.article-body pre .tok-o     { color: #ff7b72; }                     /* 运算符 */
+.article-body pre .tok-p     { color: #6e7681; }                     /* 标点 */
+.article-body pre .tok-v     { color: #ffa657; }                     /* 变量 */
+.article-body pre .tok-meta  { color: #d2a8ff; }                     /* 指令/装饰器 */
+.article-body pre .tok-tag   { color: #7ee787; }                     /* HTML 标签 */
+.article-body pre .tok-attr  { color: #ffa657; }                     /* HTML 属性 */
+.article-body pre .tok-sel   { color: #79c0ff; }                     /* CSS 选择器 */
+.article-body pre .tok-prop  { color: #d2a8ff; }                     /* CSS 属性名 */
+
+/* ---------- 公式 ----------
+   KaTeX 输出自带 .katex 样式（assets/vendor/katex/katex.min.css）；
+   以下补充显示公式的容器样式，并为内置兜底渲染器提供基础排版。 */
+.article-body .math-display {
+  margin: 22px 0;
+  text-align: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0;
+}
+
+/* 兜底渲染器（未加载 KaTeX 时）：行内公式与显示公式容器 */
+.article-body .math {
+  font-family: "Cambria Math", "Times New Roman", serif;
+  font-style: italic;
+  white-space: nowrap;
+}
+.article-body .math-display .math {
+  display: inline-block;
+  font-size: 1.06em;
+}
+
+/* Bode 图容器（bode.js 绘制的 Canvas） */
+.bode-plot {
+  margin: 24px auto;
+  max-width: 100%;
+}
+.bode-plot canvas {
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.article-body .math .mi { font-style: italic; }
+.article-body .math .rm { font-style: normal; }
+.article-body .math .bf { font-weight: 700; font-style: normal; }
+.article-body .math .mn { font-style: normal; }
+
+/* 分数 */
+.article-body .math .frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  margin: 0 2px;
+  font-size: 0.92em;
+}
+.article-body .math .frac .num {
+  padding: 0 3px 2px;
+  border-bottom: 1.5px solid currentColor;
+}
+.article-body .math .frac .den {
+  padding: 2px 3px 0;
+}
+
+/* 根号 */
+.article-body .math .sqrt {
+  display: inline-block;
+  border-top: 1.5px solid currentColor;
+  padding: 0 3px;
+  position: relative;
+}
+.article-body .math .sqrt::before {
+  content: "√";
+  position: absolute;
+  top: -1.6em;
+  left: -0.55em;
+  font-size: 0.82em;
+  line-height: 1;
+}
+.article-body .math .sqrt-body {
+  padding-left: 0.35em;
+}
+.article-body .math .sqrt-idx {
+  font-size: 0.65em;
+  vertical-align: super;
+  position: absolute;
+  top: -1.2em;
+  left: -1.05em;
+}
+
+/* 上下标 */
+.article-body .math .sup {
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+}
+.article-body .math .sub {
+  font-size: 0.7em;
+  vertical-align: sub;
+  line-height: 0;
+}
+
+/* 大运算符上下限（显示公式） */
+.article-body .math .op-lim {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  margin: 0 3px;
+}
+.article-body .math .op-lim-body {
+  font-size: 1.25em;
+  line-height: 1.1;
+}
+.article-body .math .op-lim-over {
+  font-size: 0.7em;
+  padding-bottom: 2px;
+}
+.article-body .math .op-lim-under {
+  font-size: 0.7em;
+  padding-top: 2px;
+}
+
+/* 自适应括号 / 矩阵 / 环境 */
+.article-body .math .fence {
+  display: inline-flex;
+  align-items: stretch;
+  vertical-align: middle;
+}
+.article-body .math .fence .fb {
+  display: inline-flex;
+  align-items: stretch;
+}
+.article-body .math .fd {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.2em;
+  user-select: none;
+}
+.article-body .math .fd-paren-l { border-left: 1.4px solid currentColor; margin-right: 3px; }
+.article-body .math .fd-paren-r { border-right: 1.4px solid currentColor; margin-left: 3px; }
+.article-body .math .fd-sq-l { border-left: 1.4px solid currentColor; border-top: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; border-radius: 3px 0 0 3px; margin-right: 3px; }
+.article-body .math .fd-sq-r { border-right: 1.4px solid currentColor; border-top: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; border-radius: 0 3px 3px 0; margin-left: 3px; }
+.article-body .math .fd-brace { font-family: "Cambria Math", serif; font-size: 1.5em; line-height: 1; }
+.article-body .math .fd-bar { border-left: 1.4px solid currentColor; margin-right: 3px; }
+.article-body .math .mtable {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  margin: 0 3px;
+}
+.article-body .math .mtable .mrow {
+  display: flex;
+  align-items: center;
+}
+.article-body .math .mtable .mcell {
+  padding: 1px 7px;
+  text-align: center;
+}
+.article-body .math .mtable .mcell:first-child {
+  text-align: right;
+}
+
+/* 上划线 / 下划线 / 向量箭头 */
+.article-body .math .ol { border-top: 1.2px solid currentColor; }
+.article-body .math .ul { border-bottom: 1.2px solid currentColor; }
+.article-body .math .vec { border-top: 1.2px solid currentColor; }
+.article-body .math .bb { font-style: normal; }
 
 .back-link {
   display: inline-flex;

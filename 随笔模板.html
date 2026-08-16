@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  随笔标准模板（标准随笔模板.html）
+  随笔模板（随笔模板.html）
   ------------------------------------------------------------
-  使用说明：
-  1. 复制本文件，重命名为你想要的随笔文件名（例如 my-post.html）
+  说明：
+  ★ 新增博客文章推荐使用 Markdown 工作流（更简单）：
+    1. 在 posts/ 目录新建 xxx.md，用 Markdown 写正文
+       （支持标题、列表、引用、代码块、链接、图片等）
+    2. 在 assets/js/posts.js 的 window.posts 数组登记一条记录：
+       {
+         id: "xxx",              // 与文件名一致，用于 post.html?id= 路由
+         title: "随笔标题",
+         category: "随笔",
+         date: "2026-08-16",     // YYYY-MM-DD
+         excerpt: "一句话摘要，显示在首页卡片上",
+         file: "posts/xxx.md",   // 指向 Markdown 正文
+       }
+    3. push 到 main，GitHub Actions 自动部署并更新 RSS。
+
+  本文件保留作「独立静态页」模板：
+  1. 复制本文件，重命名为你想要的文件名（例如 my-page.html）
   2. 修改 <title>、<meta name="description"> 等 head 中的 SEO / Open Graph 信息
-  3. 在左侧栏的社交链接、底部版权等处按需修改
-  4. 将正文写进 <article class="article-body"> 内
-  5. （可选）若想让随笔出现在首页卡片列表，需同时在
-     assets/js/posts.js 的 window.posts 数组中新增一条记录：
-     {
-       id: "my-post",        // 与文件名保持一致，用于 post.html?id= 路由
-       title: "随笔标题",
-       category: "随笔",
-       date: "2026-08-16",   // YYYY-MM-DD
-       excerpt: "一句话摘要，显示在首页卡片上",
-       content: `...正文 HTML...`
-     }
+  3. 将正文写进 <article class="article-body"> 内
+  4. 这种独立页面不会出现在首页文章列表 / RSS 中，
+     如需进入列表，请改用上面的 Markdown 工作流。
   ============================================================
 -->
 <html lang="zh-CN">

@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "start": "python -m http.server 8000",
-    "serve": "python -m http.server 8000"
+    "serve": "python -m http.server 8000",
+    "vendor": "node scripts/vendor-assets.mjs",
+    "build": "node scripts/vendor-assets.mjs && node scripts/generate-feed.mjs"
   },
   "keywords": [
     "blog",
@@ -23,6 +25,8 @@
   },
   "packageManager": "pnpm@10.24.0",
   "dependencies": {
-    "lucide-static": "^1.31.0"
+    "katex": "^0.18.4",
+    "lucide-static": "^1.31.0",
+    "markdown-it": "^15.0.0"
   }
 }

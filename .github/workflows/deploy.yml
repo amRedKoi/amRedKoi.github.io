@@ -37,8 +37,18 @@ jobs:
         with:
           node-version: 20
 
-      - name: Generate feed.xml & sitemap.xml
-        run: node scripts/generate-feed.mjs
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 同步 markdown-it / KaTeX 浏览器资源到 assets/vendor，
+      # 并基于 markdown-it + KaTeX 重新生成 feed（公式以 KaTeX HTML 输出）
+      - name: Sync vendor assets & generate feed.xml & sitemap.xml
+        run: node scripts/vendor-assets.mjs && node scripts/generate-feed.mjs
 
       - name: Add .nojekyll
         run: touch .nojekyll

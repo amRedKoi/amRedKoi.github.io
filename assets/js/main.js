@@ -146,8 +146,8 @@ function renderPosts() {
     .join("");
 }
 
-/** 渲染详情页 */
-function renderPost() {
+/** 渲染详情页：优先使用内联 content（HTML），否则加载 Markdown 文件 */
+async function renderPost() {
   const id = getParam("id");
   const container = document.querySelector(".article-body");
   const post = window.posts.find((p) => p.id === id);
@@ -171,7 +171,26 @@ function renderPost() {
   document.querySelector("#post-title").textContent = post.title;
   document.querySelector("#post-category").textContent = post.category;
   document.querySelector("#post-date").textContent = formatDate(post.date);
-  container.innerHTML = post.content;
+
+  try {
+    if (post.content) {
+      // 兼容：直接内联的 HTML
+      container.innerHTML = post.content;
+    } else if (post.file) {
+      // Markdown 文件：posts/xxx.md
+      const res = await fetch(post.file);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const md = await res.text();
+      container.innerHTML = renderMarkdown(md);
+    } else {
+      throw new Error("该文章未配置正文内容");
+    }
+  } catch (err) {
+    container.innerHTML = `
+      <p>正文加载失败（${err.message}）。</p>
+      <p>请注意：通过 <code>file://</code> 直接打开 HTML 时浏览器禁止 <code>fetch</code>，请使用本地服务器访问，例如 <code>python -m http.server</code> 或 <code>npx serve</code>。</p>
+    `;
+  }
 }
 
 /* ---------- 打字机标语（首页 Hero） ---------- */

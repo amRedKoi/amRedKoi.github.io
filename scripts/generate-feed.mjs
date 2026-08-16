@@ -10,10 +10,13 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { createRequire } from "node:module";
 import vm from "node:vm";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
+const require = createRequire(import.meta.url);
+const renderMarkdown = require("../assets/js/markdown.js");
 
 const SITE_URL = "https://amRedKoi.github.io";
 const SITE_NAME = "amRedKoi 个人小站";
@@ -84,13 +87,30 @@ function loadPosts() {
   );
 }
 
+/**
+ * 读取文章正文并渲染为 HTML。
+ * 优先级：内联 content（HTML）> 文件 file（Markdown）。
+ */
+function loadPostBody(p) {
+  if (p.content) {
+    return { html: p.content };
+  }
+  if (p.file) {
+    const file = join(ROOT, p.file);
+    const md = readFileSync(file, "utf8");
+    return { html: renderMarkdown(md) };
+  }
+  return { html: "" };
+}
+
 function buildFeed(posts) {
   const now = new Date().toUTCString();
   const items = posts
     .map((p) => {
       const url = `${SITE_URL}/post.html?id=${encodeURIComponent(p.id)}`;
-      const desc = p.excerpt || stripHtml(p.content || "");
-      const contentEncoded = p.content || "";
+      const body = loadPostBody(p);
+      const desc = p.excerpt || stripHtml(body.html);
+      const contentEncoded = body.html;
       return `    <item>
       <title>${esc(p.title)}</title>
       <link>${esc(url)}</link>
