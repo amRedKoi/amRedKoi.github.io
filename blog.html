@@ -3,30 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="amRedKoi 的文章详情页。">
+  <meta name="description" content="amRedKoi 的博客：记录技术、学习、生活与随笔，支持分类、标签与分页浏览。">
+  <meta name="keywords" content="amRedKoi,个人博客,随笔,技术,学习笔记,前端,控制">
   <meta name="author" content="amRedKoi">
-  <title>文章 · amRedKoi 个人小站</title>
-  <link rel="canonical" href="https://amRedKoi.github.io/post.html">
+  <title>博客 · amRedKoi 个人小站</title>
+  <link rel="canonical" href="https://amRedKoi.github.io/blog.html">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="amRedKoi 个人小站 RSS" href="feed.xml">
   <!-- Open Graph -->
-  <meta property="og:type" content="article">
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="amRedKoi 个人小站">
-  <meta property="og:title" content="文章 · amRedKoi 个人小站">
-  <meta property="og:description" content="amRedKoi 的文章详情页。">
-  <meta property="og:url" content="https://amRedKoi.github.io/post.html">
-  <meta property="og:image" content="https://amRedKoi.github.io/assets/favicon.svg">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:title" content="博客 · amRedKoi">
+  <meta property="og:description" content="amRedKoi 的博客：技术、学习、生活与随笔。">
+  <meta property="og:url" content="https://amRedKoi.github.io/blog.html">
+  <meta property="og:image" content="https://amRedKoi.github.io/assets/images/hero-bg.png">
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- KaTeX：公式排版样式（未加载时 markdown.js 自动回退到内置渲染器） -->
-  <link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
 </head>
-<body data-page="post">
+<body data-page="blog">
 
-  <!-- 阅读进度条（文章页） -->
-  <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
-
-  <!-- 顶部导航 -->
+  <!-- 顶部导航：文章 / 动态 / 回到主站 -->
   <header class="topbar">
     <button class="menu-toggle" id="menu-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="sidebar">
       <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-menu"></use></svg>
@@ -41,7 +36,7 @@
         <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-home"></use></svg>
         <span>首页</span>
       </a>
-      <a href="blog.html">
+      <a href="blog.html" class="active">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-book"></use></svg>
         <span>博客</span>
       </a>
@@ -62,7 +57,7 @@
   </header>
 
   <div class="layout">
-    <!-- 左侧栏：个人卡片 -->
+    <!-- 左侧栏：个人卡片（与其他页面保持一致，便于统一维护） -->
     <aside class="sidebar" id="sidebar">
       <div class="side-profile">
         <img class="avatar" src="https://avatars.githubusercontent.com/u/99656385?v=4&size=128" alt="amRedKoi 的头像">
@@ -86,27 +81,68 @@
       <div class="footer-note">记录生活<br>与随笔分享</div>
     </aside>
 
+    <!-- 右侧内容 -->
     <main class="content">
       <div class="container">
-        <a class="back-link" href="index.html" id="back-link">
-          <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-arrow-left"></use></svg>
-          <span class="back-link-text">返回首页</span>
-        </a>
 
-        <section class="article-header">
-          <div class="meta">
-            <span class="category" id="post-category"></span>
-            <time id="post-date"></time>
+        <!-- 文章 / 动态 切换 + 分类 + 滚动通知 -->
+        <div class="blog-subbar">
+          <div class="blog-tabs" role="tablist" aria-label="博客内容切换">
+            <button type="button" class="tab active" data-view="posts" role="tab" aria-selected="true">文章</button>
+            <button type="button" class="tab" data-view="moments" role="tab" aria-selected="false">动态</button>
           </div>
-          <h1 id="post-title"></h1>
-        </section>
+          <div class="filters" id="blog-filters"></div>
+          <div class="blog-notice">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-megaphone"></use></svg>
+            <div class="notice-viewport">
+              <div class="notice-track" id="notice-track" aria-label="站内通知"></div>
+            </div>
+          </div>
+        </div>
 
-        <div class="post-layout">
-          <article class="article-body"></article>
-          <aside class="post-toc" aria-label="文章目录">
-            <p class="post-toc-title">文章大纲</p>
-            <nav class="post-toc-list" id="post-toc-list"></nav>
+        <div class="blog-main">
+
+          <!-- 左：文章 / 动态 视图 -->
+          <div class="blog-view">
+
+            <!-- 文章视图（默认） -->
+            <section id="view-posts" class="view-posts">
+              <div class="posts-head">
+                <span class="title">文章</span>
+                <div class="search-wrap">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-search"></use></svg>
+                  <input type="search" id="search-input" placeholder="搜索文章…" aria-label="搜索文章">
+                </div>
+              </div>
+              <section class="posts" aria-label="文章列表"></section>
+              <div class="empty">
+                <p>没有找到匹配的文章，换个分类或关键词试试～</p>
+              </div>
+              <nav class="pagination" id="pagination" aria-label="文章分页"></nav>
+            </section>
+
+            <!-- 动态视图 -->
+            <section id="view-moments" class="view-moments" hidden>
+              <div class="moments-head">
+                <span class="title">动态</span>
+                <span class="moments-hint">随缘更新</span>
+              </div>
+              <div class="moments-list" id="moments"></div>
+            </section>
+
+          </div>
+
+          <!-- 右：标签云 -->
+          <aside class="blog-aside">
+            <div class="tag-panel">
+              <div class="tag-panel-head">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-tag"></use></svg>
+                <h3>标签</h3>
+              </div>
+              <div class="tag-cloud" id="tag-cloud"></div>
+            </div>
           </aside>
+
         </div>
       </div>
     </main>
@@ -121,11 +157,7 @@
   </button>
 
   <script src="assets/js/posts.js"></script>
-  <!-- 主渲染引擎：markdown-it + KaTeX（缺失时 markdown.js 自动回退到内置渲染器） -->
-  <script src="assets/vendor/katex/katex.min.js"></script>
-  <script src="assets/vendor/markdown-it/markdown-it.min.js"></script>
-  <script src="assets/js/markdown.js"></script>
-  <script src="assets/js/bode.js"></script>
+  <script src="assets/js/site-data.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

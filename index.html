@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="amRedKoi 的个人小站，记录科研、生活与随笔，分享控制科学与工程领域的学习笔记与项目。">
+  <meta name="description" content="amRedKoi 的个人主页：记录科研、生活与随笔，分享控制科学与工程领域的学习笔记与交互模型。">
   <meta name="keywords" content="amRedKoi,个人博客,随笔,学习笔记,控制科学与工程,自动控制,科研">
   <meta name="author" content="amRedKoi">
   <title>amRedKoi · 个人小站 | 科研 · 生活与随笔</title>
@@ -16,8 +16,8 @@
   <meta property="og:title" content="amRedKoi · 个人小站">
   <meta property="og:description" content="amRedKoi 的个人小站，记录科研、生活与随笔，分享控制科学与工程领域的学习笔记与项目。">
   <meta property="og:url" content="https://amRedKoi.github.io/index.html">
-  <meta property="og:image" content="https://amRedKoi.github.io/assets/favicon.svg">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://amRedKoi.github.io/assets/images/hero-bg.png">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="amRedKoi · 个人小站">
   <meta name="twitter:description" content="amRedKoi 的个人小站，记录科研、生活与随笔。">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -26,9 +26,6 @@
 
   <!-- 顶部导航 -->
   <header class="topbar">
-    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="sidebar">
-      <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-menu"></use></svg>
-    </button>
     <a class="brand" href="index.html">
       <svg class="logo" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-code"></use></svg>
       <span class="brand-text">amRedKoi</span>
@@ -39,136 +36,181 @@
         <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-home"></use></svg>
         <span>首页</span>
       </a>
+      <a href="blog.html">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-book"></use></svg>
+        <span>博客</span>
+      </a>
+      <a href="resources.html">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-box"></use></svg>
+        <span>资源</span>
+      </a>
       <a href="about.html">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-user"></use></svg>
         <span>关于</span>
       </a>
     </nav>
 
-    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换到深色模式">
-      <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-moon"></use></svg>
-      <span class="label">深色模式</span>
-    </button>
+    <div class="theme-tools">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换到深色模式">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-moon"></use></svg>
+        <span class="label">深色模式</span>
+      </button>
+
+      <button class="accent-toggle" id="accent-toggle" type="button" aria-label="自定义主题色" aria-expanded="false">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-palette"></use></svg>
+        <span class="label">主题色</span>
+      </button>
+      <div class="accent-panel" id="accent-panel" hidden>
+        <p class="accent-panel-title">主题色</p>
+        <div class="accent-swatches" id="accent-swatches" role="radiogroup" aria-label="预设主题色"></div>
+        <label class="accent-custom">
+          <input type="color" id="accent-color" value="#5f9a8a">
+          <span>自定义颜色</span>
+        </label>
+        <button type="button" class="accent-reset" id="accent-reset">恢复默认</button>
+      </div>
+    </div>
   </header>
 
-  <div class="layout">
-    <!-- 左侧栏：个人卡片 -->
-    <aside class="sidebar" id="sidebar">
-      <div class="side-profile">
-        <img class="avatar" src="https://avatars.githubusercontent.com/u/99656385?v=4&size=128" alt="amRedKoi 的头像">
-        <h2 class="side-name">amRedKoi</h2>
-        <div class="social">
-          <a class="social-btn" href="https://github.com/amRedKoi" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-github"></use></svg>
-          </a>
-          <a class="social-btn" href="about.html" aria-label="关于我">
-            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-user"></use></svg>
-          </a>
-          <a class="social-btn" href="mailto:jjjgml@qq.com" aria-label="联系我">
-            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-mail"></use></svg>
+  <!-- ============ Hero 大背景 ============ -->
+  <section class="home-hero">
+    <div class="home-hero-bg" aria-hidden="true"></div>
+    <div class="home-hero-inner">
+      <p class="hero-greet">你好，我是</p>
+      <h1 class="hero-name">amRedKoi</h1>
+      <p class="hero-lead">记录科研 · 生活与随笔</p>
+      <p class="typewriter hero-type">
+        <span id="typewriter"></span><span class="typewriter-caret" aria-hidden="true"></span>
+      </p>
+      <div class="hero-actions">
+        <a class="hero-btn hero-btn-primary" href="blog.html">
+          进入博客
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-arrow-right"></use></svg>
+        </a>
+        <a class="hero-btn hero-btn-ghost" href="resources.html">
+          浏览资源
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-box"></use></svg>
+        </a>
+      </div>
+      <a class="hero-scroll" href="#about" aria-label="向下滚动查看更多">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-chevron-down"></use></svg>
+      </a>
+    </div>
+  </section>
+
+  <main class="home-main">
+
+    <!-- ============ 关于我 ============ -->
+    <section class="home-section home-about" id="about">
+      <div class="home-container">
+        <div class="home-section-head">
+          <span class="home-section-tag">ABOUT</span>
+          <h2>简介</h2>
+          <p class="home-section-desc">一份简短的自我介绍。</p>
+        </div>
+        <div class="home-about-grid">
+          <div class="home-about-text">
+            <p class="home-about-bio" id="about-bio"></p>
+            <ul class="profile-info" id="profile-info"></ul>
+            <div class="home-tags" id="home-tags"></div>
+            <div class="home-socials" id="home-socials"></div>
+          </div>
+          <div class="home-about-figure">
+            <figure class="about-motto" id="about-motto" aria-label="座右铭"></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 经历时间线 ============ -->
+    <!-- ============ 我的经历（暂注释，可恢复） ============
+    <section class="home-section home-timeline" id="journey">
+      <div class="home-container">
+        <div class="home-section-head">
+          <span class="home-section-tag">JOURNEY</span>
+          <h2>我的经历</h2>
+          <p class="home-section-desc">沿时间轴慢慢展开的成长片段。</p>
+        </div>
+        <div class="home-timeline" id="timeline"></div>
+      </div>
+    </section>
+    -->
+
+    <!-- ============ 资源预览 ============ -->
+    <section class="home-section home-resources" id="resources">
+      <div class="home-container">
+        <div class="home-section-head">
+          <span class="home-section-tag">RESOURCES</span>
+          <h2>资源与模型</h2>
+          <p class="home-section-desc">我制作的自动控制原理相关交互模型与收藏。</p>
+        </div>
+        <div class="home-resource-grid" id="home-resources"></div>
+        <div class="home-more">
+          <a class="hero-btn hero-btn-ghost" href="resources.html">
+            查看全部资源
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-arrow-right"></use></svg>
           </a>
         </div>
       </div>
-      <div class="daily-quote">
-        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-lightbulb"></use></svg>
-        <p class="daily-quote-text" id="daily-quote"></p>
-      </div>
-      <div class="footer-note">记录生活<br>与随笔分享</div>
-    </aside>
+    </section>
 
-    <!-- 右侧内容 -->
-    <main class="content">
-      <div class="container">
-        <section class="page-hero">
-          <h1>amRedKoi</h1>
-          <p class="lead">记录科研 · 生活与随笔</p>
-          <p class="typewriter">
-            <span id="typewriter"></span><span class="typewriter-caret" aria-hidden="true"></span>
-          </p>
-        </section>
-
-        <!-- PID 闭环动态可视化 -->
-        <section class="pid-sim" id="pid-sim" aria-label="PID 控制器动态仿真">
-          <div class="pid-sim-head">
-            <span class="pid-sim-title">PID 闭环控制 · 实时仿真</span>
-            <div class="pid-modes" role="group" aria-label="目标信号类型">
-              <button class="pid-mode-btn active" type="button" data-mode="step">阶跃跟踪</button>
-              <button class="pid-mode-btn" type="button" data-mode="sine">正弦跟踪</button>
-              <button class="pid-mode-btn" type="button" data-mode="disturb">抗扰动</button>
-            </div>
-          </div>
-
-          <canvas id="pid-canvas" width="800" height="220" role="img"
-            aria-label="PID 控制器输出跟踪目标曲线的实时动画，底部为控制量曲线"></canvas>
-
-          <div class="pid-legend" aria-hidden="true">
-            <span class="pid-legend-item"><i class="swatch swatch-ref"></i>目标 r(t)</span>
-            <span class="pid-legend-item"><i class="swatch swatch-y"></i>输出 y(t)</span>
-            <span class="pid-legend-item"><i class="swatch swatch-u"></i>控制 u(t)</span>
-          </div>
-
-          <div class="pid-controls">
-            <label class="pid-knob">
-              <span class="pid-knob-name">Kp <em>比例</em></span>
-              <input id="pid-kp" type="range" min="0" max="10" step="0.05" value="6" aria-label="比例增益 Kp">
-              <span class="pid-knob-val" id="pid-kp-val">6.00</span>
-            </label>
-            <label class="pid-knob">
-              <span class="pid-knob-name">Ki <em>积分</em></span>
-              <input id="pid-ki" type="range" min="0" max="5" step="0.05" value="3" aria-label="积分增益 Ki">
-              <span class="pid-knob-val" id="pid-ki-val">3.00</span>
-            </label>
-            <label class="pid-knob">
-              <span class="pid-knob-name">Kd <em>微分</em></span>
-              <input id="pid-kd" type="range" min="0" max="3" step="0.05" value="0.3" aria-label="微分增益 Kd">
-              <span class="pid-knob-val" id="pid-kd-val">0.30</span>
-            </label>
-          </div>
-
-          <div class="pid-readout">
-            <span>目标 <b id="pid-readout-ref">—</b></span>
-            <span>输出 <b id="pid-readout-y">—</b></span>
-            <span>误差 <b id="pid-readout-err">—</b></span>
-            <span>控制量 <b id="pid-readout-u">—</b></span>
-            <span>时间 <b id="pid-readout-t">—</b></span>
-          </div>
-        </section>
-
-        <!-- 控制领域顶刊 -->
-        <section class="section-title">控制领域顶刊</section>
-        <ul class="journal-list">
-          <li><a href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=9" target="_blank" rel="noopener">IEEE Transactions on Automatic Control <svg class="icon ext" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-external"></use></svg></a></li>
-          <li><a href="https://www.sciencedirect.com/journal/automatica" target="_blank" rel="noopener">Automatica <svg class="icon ext" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-external"></use></svg></a></li>
-          <li><a href="https://www.ieee-jas.net/" target="_blank" rel="noopener">IEEE/CAA Journal of Automatica Sinica <svg class="icon ext" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-external"></use></svg></a></li>
-          <li><a href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=87" target="_blank" rel="noopener">IEEE Transactions on Control Systems Technology <svg class="icon ext" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-external"></use></svg></a></li>
-          <li><a href="http://www.aas.net.cn/" target="_blank" rel="noopener">自动化学报 <svg class="icon ext" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-external"></use></svg></a></li>
-          <li><a href="http://kzyjc.alljournals.cn/" target="_blank" rel="noopener">控制与决策 <svg class="icon ext" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-external"></use></svg></a></li>
-        </ul>
-
-        <!-- 项目展示 -->
-        <section class="section-title">项目</section>
-        <div class="projects" id="projects"></div>
-
-        <!-- 分享文章 -->
-        <div class="posts-head">
-          <span class="title">分享</span>
-          <div class="search-wrap">
-            <input id="search-input" type="text" placeholder="搜索…" aria-label="搜索文章">
-            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-search"></use></svg>
-          </div>
+    <!-- ============ 博客卡片 ============ -->
+    <section class="home-section home-blog" id="posts">
+      <div class="home-container">
+        <div class="home-section-head">
+          <span class="home-section-tag">BLOG</span>
+          <h2>最新文章</h2>
+          <p class="home-section-desc">最近写的一些文章，点击进入博客阅读全文。</p>
         </div>
-
-        <div class="filters"></div>
-
-        <section class="posts" aria-label="文章列表"></section>
-
-        <div class="empty">
-          <svg class="icon empty-icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-inbox"></use></svg>
-          <p>没有找到相关文章，换个关键词试试吧。</p>
+        <div class="home-post-grid" id="home-posts"></div>
+        <div class="home-more">
+          <a class="hero-btn hero-btn-ghost" href="blog.html">
+            进入博客
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-arrow-right"></use></svg>
+          </a>
         </div>
       </div>
-    </main>
-  </div>
+    </section>
+
+    <!-- ============ 关于本站 ============ -->
+    <section class="home-section home-stats" id="site">
+      <div class="home-container">
+        <div class="home-section-head">
+          <span class="home-section-tag">SITE</span>
+          <h2>关于本站</h2>
+          <p class="home-section-desc" id="site-desc"></p>
+        </div>
+        <div class="home-stats-grid">
+          <div class="home-stat-card">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-clock"></use></svg>
+            <b id="stat-days">—</b>
+            <span>建站时长</span>
+          </div>
+          <div class="home-stat-card">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-pen"></use></svg>
+            <b id="stat-posts">—</b>
+            <span>文章总数</span>
+          </div>
+          <div class="home-stat-card">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-file-text"></use></svg>
+            <b id="stat-words">—</b>
+            <span>全站字数</span>
+          </div>
+          <div class="home-stat-card">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-eye"></use></svg>
+            <b id="stat-visits">—</b>
+            <span>访问量</span>
+          </div>
+          <a class="home-stat-card home-stat-link" href="docs.html">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-book"></use></svg>
+            <b>技术文档</b>
+            <span>站点架构与开发指南</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
     <div class="container">© 2026 amRedKoi · 个人小站</div>
@@ -180,7 +222,7 @@
 
   <script src="assets/js/posts.js"></script>
   <script src="assets/js/projects.js"></script>
+  <script src="assets/js/site-data.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/pid-sim.js"></script>
 </body>
 </html>

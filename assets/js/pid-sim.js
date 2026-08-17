@@ -193,7 +193,7 @@
     const cAccentBlue = cssVar("--accent-blue", isDark ? "#a2b4be" : "#8da0ab");
     const cAccentPink = cssVar("--accent-pink", isDark ? "#bdaba6" : "#b3a09a");
     const cMuted = cssVar("--text-muted", isDark ? "#97978d" : "#8b8a83");
-    const cHalo = isDark ? "#242624" : "#ffffff";
+    const cHalo = cssVar("--bg", isDark ? "#242624" : "#ffffff");
 
     // 网格（固定刻度）
     ctx.strokeStyle = cGrid;

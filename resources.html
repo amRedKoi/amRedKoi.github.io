@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="amRedKoi 的资源库：自动控制原理相关交互模型（PID 仿真、Bode 图）、网址收藏与项目。">
+  <meta name="keywords" content="amRedKoi,PID仿真,Bode图,控制模型,顶刊,项目,资源">
+  <meta name="author" content="amRedKoi">
+  <title>资源 · amRedKoi</title>
+  <link rel="canonical" href="https://amRedKoi.github.io/resources.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="amRedKoi 个人小站 RSS" href="feed.xml">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="amRedKoi 个人小站">
+  <meta property="og:title" content="资源 · amRedKoi">
+  <meta property="og:description" content="amRedKoi 的资源库：自动控制原理相关交互模型、Bode 图绘制器、控制领域顶刊与项目。">
+  <meta property="og:url" content="https://amRedKoi.github.io/resources.html">
+  <meta property="og:image" content="https://amRedKoi.github.io/assets/images/hero-bg.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="resources">
+
+  <!-- 顶部导航 -->
+  <header class="topbar">
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="sidebar">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-menu"></use></svg>
+    </button>
+    <a class="brand" href="index.html">
+      <svg class="logo" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-code"></use></svg>
+      <span class="brand-text">amRedKoi</span>
+    </a>
+
+    <nav class="top-nav" aria-label="主导航">
+      <a href="index.html">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-home"></use></svg>
+        <span>首页</span>
+      </a>
+      <a href="blog.html">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-book"></use></svg>
+        <span>博客</span>
+      </a>
+      <a href="resources.html" class="active">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-box"></use></svg>
+        <span>资源</span>
+      </a>
+      <a href="about.html">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-user"></use></svg>
+        <span>关于</span>
+      </a>
+    </nav>
+
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换到深色模式">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-moon"></use></svg>
+      <span class="label">深色模式</span>
+    </button>
+  </header>
+
+  <div class="layout">
+    <!-- 左侧栏：个人卡片 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="side-profile">
+        <img class="avatar" src="https://avatars.githubusercontent.com/u/99656385?v=4&size=128" alt="amRedKoi 的头像">
+        <h2 class="side-name">amRedKoi</h2>
+        <div class="social">
+          <a class="social-btn" href="https://github.com/amRedKoi" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-github"></use></svg>
+          </a>
+          <a class="social-btn" href="about.html" aria-label="关于我">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-user"></use></svg>
+          </a>
+          <a class="social-btn" href="mailto:jjjgml@qq.com" aria-label="联系我">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-mail"></use></svg>
+          </a>
+        </div>
+      </div>
+      <div class="daily-quote">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-lightbulb"></use></svg>
+        <p class="daily-quote-text" id="daily-quote"></p>
+      </div>
+      <div class="footer-note">记录生活<br>与随笔分享</div>
+    </aside>
+
+    <!-- 右侧内容 -->
+    <main class="content">
+      <div class="container">
+        <section class="page-hero">
+          <h1>资源</h1>
+          <p class="lead">自动控制原理相关模型、工具与收藏。</p>
+        </section>
+
+        <!-- 分类 + 滚动通知（与博客页一致） -->
+        <div class="blog-subbar">
+          <nav class="filters" id="resource-filters" aria-label="资源目录">
+            <a class="chip active" href="#models">模型</a>
+            <a class="chip" href="#links">网址</a>
+            <a class="chip" href="#projects">项目</a>
+          </nav>
+          <div class="blog-notice">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-megaphone"></use></svg>
+            <div class="notice-viewport">
+              <div class="notice-track" id="notice-track" aria-label="站内通知"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-main">
+
+          <!-- 左：资源内容 -->
+          <div class="blog-view">
+
+            <!-- ============ 模型：PID 仿真 + Bode 图 ============ -->
+            <section class="resource-group" id="models" aria-labelledby="models-title">
+              <div class="resource-group-head">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-sliders"></use></svg>
+                <div>
+                  <h2 id="models-title">模型</h2>
+                  <p>交互式控制模型，动手调参直观感受反馈控制与频率特性。</p>
+                </div>
+              </div>
+
+              <!-- PID 闭环动态可视化 -->
+              <section class="pid-sim" id="pid-sim" aria-label="PID 控制器动态仿真">
+                <div class="pid-sim-head">
+                  <span class="pid-sim-title">PID 闭环控制 · 实时仿真</span>
+                  <div class="pid-modes" role="group" aria-label="目标信号类型">
+                    <button class="pid-mode-btn active" type="button" data-mode="step">阶跃跟踪</button>
+                    <button class="pid-mode-btn" type="button" data-mode="sine">正弦跟踪</button>
+                    <button class="pid-mode-btn" type="button" data-mode="disturb">抗扰动</button>
+                  </div>
+                </div>
+
+                <canvas id="pid-canvas" width="800" height="220" role="img"
+                  aria-label="PID 控制器输出跟踪目标曲线的实时动画，底部为控制量曲线"></canvas>
+
+                <div class="pid-legend" aria-hidden="true">
+                  <span class="pid-legend-item"><i class="swatch swatch-ref"></i>目标 r(t)</span>
+                  <span class="pid-legend-item"><i class="swatch swatch-y"></i>输出 y(t)</span>
+                  <span class="pid-legend-item"><i class="swatch swatch-u"></i>控制 u(t)</span>
+                </div>
+
+                <div class="pid-controls">
+                  <label class="pid-knob">
+                    <span class="pid-knob-name">Kp <em>比例</em></span>
+                    <input id="pid-kp" type="range" min="0" max="10" step="0.05" value="6" aria-label="比例增益 Kp">
+                    <span class="pid-knob-val" id="pid-kp-val">6.00</span>
+                  </label>
+                  <label class="pid-knob">
+                    <span class="pid-knob-name">Ki <em>积分</em></span>
+                    <input id="pid-ki" type="range" min="0" max="5" step="0.05" value="3" aria-label="积分增益 Ki">
+                    <span class="pid-knob-val" id="pid-ki-val">3.00</span>
+                  </label>
+                  <label class="pid-knob">
+                    <span class="pid-knob-name">Kd <em>微分</em></span>
+                    <input id="pid-kd" type="range" min="0" max="3" step="0.05" value="0.3" aria-label="微分增益 Kd">
+                    <span class="pid-knob-val" id="pid-kd-val">0.30</span>
+                  </label>
+                </div>
+
+                <div class="pid-readout">
+                  <span>目标 <b id="pid-readout-ref">—</b></span>
+                  <span>输出 <b id="pid-readout-y">—</b></span>
+                  <span>误差 <b id="pid-readout-err">—</b></span>
+                  <span>控制量 <b id="pid-readout-u">—</b></span>
+                  <span>时间 <b id="pid-readout-t">—</b></span>
+                </div>
+              </section>
+
+              <!-- Bode 图绘制器（公式可编辑、参数可调） -->
+              <section class="resource-block" id="bode-plot">
+                <div class="resource-block-head">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-activity"></use></svg>
+                  <h2>Bode 图绘制器</h2>
+                  <a class="resource-link" href="post.html?id=minimum-phase-elements">配套文章：最小相位环节的 Bode 图</a>
+                </div>
+                <p class="resource-desc">
+                  输入传递函数表达式即可实时绘制 Bode 图，公式中的参数（如 <code>K</code>、<code>T</code>、<code>xi</code>、<code>wn</code>）会自动生成滑杆调节。
+                </p>
+
+                <div class="bode-editor" id="bode-editor">
+                  <div class="bode-expr-row">
+                    <span class="bode-expr-prefix">G(s) =</span>
+                    <input class="bode-expr-input" id="bode-expr-input" type="text" spellcheck="false" autocomplete="off"
+                      value="10/((s+1)*(s+10))" aria-label="传递函数表达式">
+                    <button class="bode-apply-btn" id="bode-apply-btn" type="button">绘制</button>
+                  </div>
+                  <div class="bode-error" id="bode-error" role="alert"></div>
+                  <div class="bode-presets" role="group" aria-label="预设公式">
+                    <span class="bode-presets-label">示例：</span>
+                    <button class="bode-preset-btn" type="button" data-expr="10/((s+1)*(s+10))">惯性串联</button>
+                    <button class="bode-preset-btn" type="button" data-expr="K/(s*(T*s+1))">典型二阶系统</button>
+                    <button class="bode-preset-btn" type="button" data-expr="(T*s+1)/(s^2+2*xi*wn*s+wn^2)">超前 + 振荡</button>
+                    <button class="bode-preset-btn" type="button" data-expr="exp(-T*s)">纯延迟</button>
+                    <button class="bode-preset-btn" type="button" data-expr="(1+s)/(1+0.1*s)">一阶超前</button>
+                  </div>
+                  <div class="bode-params" id="bode-params"></div>
+                  <canvas id="bode-canvas" width="800" height="440" role="img"
+                    aria-label="Bode 图：幅频特性与相频特性"></canvas>
+                </div>
+              </section>
+            </section>
+
+            <!-- ============ 网址：可扩展的网址陈列 ============ -->
+            <section class="resource-group" id="links" aria-labelledby="links-title">
+              <div class="resource-group-head">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-link"></use></svg>
+                <div>
+                  <h2 id="links-title">网址</h2>
+                  <p>常用网站收藏，按类型陈列，持续更新。</p>
+                </div>
+              </div>
+              <!-- 子块由 main.js 依据 site-data.js 的 linkGroups 数据动态渲染 -->
+              <div class="link-groups" id="link-groups"></div>
+            </section>
+
+            <!-- 项目展示 -->
+            <section class="resource-block" id="projects">
+              <div class="resource-block-head">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-cpu"></use></svg>
+                <h2>项目</h2>
+              </div>
+              <div class="projects"></div>
+            </section>
+
+          </div>
+
+          <!-- 右：资源目录 -->
+          <aside class="blog-aside">
+            <div class="tag-panel">
+              <div class="tag-panel-head">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-layers"></use></svg>
+                <h3 id="resource-toc-title">资源目录</h3>
+              </div>
+              <nav class="resource-toc" id="resource-toc" aria-label="资源目录"></nav>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <div class="container">© 2026 amRedKoi · 个人小站</div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="回到顶部">
+    <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#icon-arrow-up"></use></svg>
+  </button>
+
+  <script src="assets/js/posts.js"></script>
+  <script src="assets/js/projects.js"></script>
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/bode-editor.js"></script>
+  <script src="assets/js/pid-sim.js"></script>
+</body>
+</html>

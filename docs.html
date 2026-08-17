@@ -3,27 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="amRedKoi 的文章详情页。">
+  <meta name="description" content="amRedKoi 个人小站的技术文档：架构说明、数据层、开发速查表与注意事项。">
   <meta name="author" content="amRedKoi">
-  <title>文章 · amRedKoi 个人小站</title>
-  <link rel="canonical" href="https://amRedKoi.github.io/post.html">
+  <title>技术文档 · amRedKoi 个人小站</title>
+  <link rel="canonical" href="https://amRedKoi.github.io/docs.html">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="amRedKoi 个人小站 RSS" href="feed.xml">
-  <!-- Open Graph -->
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="amRedKoi 个人小站">
-  <meta property="og:title" content="文章 · amRedKoi 个人小站">
-  <meta property="og:description" content="amRedKoi 的文章详情页。">
-  <meta property="og:url" content="https://amRedKoi.github.io/post.html">
-  <meta property="og:image" content="https://amRedKoi.github.io/assets/favicon.svg">
-  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="assets/css/style.css">
   <!-- KaTeX：公式排版样式（未加载时 markdown.js 自动回退到内置渲染器） -->
   <link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
 </head>
-<body data-page="post">
+<body data-page="docs">
 
-  <!-- 阅读进度条（文章页） -->
+  <!-- 阅读进度条（文档页） -->
   <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
 
   <!-- 顶部导航 -->
@@ -95,16 +87,16 @@
 
         <section class="article-header">
           <div class="meta">
-            <span class="category" id="post-category"></span>
-            <time id="post-date"></time>
+            <span class="category">站点文档</span>
+            <time id="post-date">持续更新</time>
           </div>
-          <h1 id="post-title"></h1>
+          <h1 id="post-title">技术文档</h1>
         </section>
 
         <div class="post-layout">
           <article class="article-body"></article>
           <aside class="post-toc" aria-label="文章目录">
-            <p class="post-toc-title">文章大纲</p>
+            <p class="post-toc-title">文档目录</p>
             <nav class="post-toc-list" id="post-toc-list"></nav>
           </aside>
         </div>
@@ -121,11 +113,12 @@
   </button>
 
   <script src="assets/js/posts.js"></script>
-  <!-- 主渲染引擎：markdown-it + KaTeX（缺失时 markdown.js 自动回退到内置渲染器） -->
+  <script src="assets/js/projects.js"></script>
+  <script src="assets/js/site-data.js"></script>
+  <!-- 渲染引擎：markdown-it + KaTeX（缺失时 markdown.js 自动回退到内置渲染器） -->
   <script src="assets/vendor/katex/katex.min.js"></script>
   <script src="assets/vendor/markdown-it/markdown-it.min.js"></script>
   <script src="assets/js/markdown.js"></script>
-  <script src="assets/js/bode.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -200,10 +200,10 @@
     // 函数图配色随主题：浅色白底深墨，深色深底浅墨
     var isDark =
       document.documentElement.getAttribute("data-theme") === "dark";
-    var cText = isDark ? "#d7d4cb" : "#4b4a46";
-    var cMuted = isDark ? "#97978d" : "#8b8a83";
-    var cGrid = isDark ? "#3a3d38" : "#dcd8ce";
-    var cBg = isDark ? "#242624" : "#ffffff";
+    var cText = cssVar("--text", isDark ? "#d7d4cb" : "#4b4a46");
+    var cMuted = cssVar("--text-muted", isDark ? "#97978d" : "#8b8a83");
+    var cGrid = cssVar("--border", isDark ? "#3a3d38" : "#dcd8ce");
+    var cBg = cssVar("--bg", isDark ? "#242624" : "#ffffff");
 
     var seriesList = spec.series || [];
     var fmin = spec.fmin || 0.01;
@@ -249,7 +249,7 @@
     var pad = { top: 34, right: 20, bottom: 30, left: 60 };
     var gap = 22;
     var containerW = canvas.parentElement ? canvas.parentElement.clientWidth : 860;
-    var W = Math.max(containerW - 2, 320);
+    var W = Math.max(containerW - 2, 240);
     var totalH = spec.height || 430;
     var panelH = (totalH - pad.top - pad.bottom - gap) / 2;
     var H = totalH;
@@ -448,6 +448,19 @@
       });
       mo.observe(document.body, { childList: true, subtree: true });
     }
+    // 窗口尺寸变化（含手机旋转/侧边栏开合）后重绘，跟随容器宽度
+    var resizeTimer = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        document.querySelectorAll(".bode-plot canvas").forEach(function (c) {
+          var wrapper = c.parentElement;
+          wrapper.dataset.bodeDone = "";
+          wrapper.removeChild(c);
+        });
+        renderBodePlots(document);
+      }, 150);
+    });
     // 主题切换后重绘
     if (typeof MutationObserver === "function") {
       var themeMo = new MutationObserver(function () {
