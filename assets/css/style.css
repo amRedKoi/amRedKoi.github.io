@@ -2572,6 +2572,11 @@ footer {
   .post-toc {
     display: none;
   }
+  /* 目录列被隐藏后，移除其网格轨道，避免正文被挤压到左侧 */
+  .post-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
   .about-card {
     padding: 24px 18px;
   }
